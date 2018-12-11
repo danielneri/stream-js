@@ -27,7 +27,7 @@ function connect(apiKey, apiSecret, appId, options) {
    * @example <caption>where streamURL looks like</caption>
    * "https://thierry:pass@gestream.io/?app=1"
    */
-  if (typeof process !== 'undefined' && process.env.STREAM_URL && !apiKey) {
+  if (typeof process !== 'undefined' && typeof process.env !== 'undefined' && process.env.STREAM_URL && !apiKey) {
     var parts = /https:\/\/(\w+):(\w+)@([\w-]*).*\?app_id=(\d+)/.exec(
       process.env.STREAM_URL,
     );

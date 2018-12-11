@@ -84,12 +84,13 @@ StreamClient.prototype = {
     this.location = this.options.location;
     this.baseUrl = this.getBaseUrl();
 
-    if (typeof process !== 'undefined' && process.env.LOCAL_FAYE) {
+    if (typeof process !== 'undefined' && typeof process.env !== 'undefined' && process.env.LOCAL_FAYE) {
       this.fayeUrl = 'http://localhost:9999/faye/';
     }
 
     if (
       typeof process !== 'undefined' &&
+      typeof process.env !== 'undefined' &&
       process.env.STREAM_ANALYTICS_BASE_URL
     ) {
       this.baseAnalyticsUrl = process.env.STREAM_ANALYTICS_BASE_URL;
@@ -219,7 +220,7 @@ StreamClient.prototype = {
     }
 
     if (
-      (typeof process !== 'undefined' && process.env.LOCAL) ||
+      (typeof process !== 'undefined' && typeof process.env !== 'undefined' && process.env.LOCAL) ||
       this.options.local
     ) {
       url = 'http://localhost:8000/' + serviceName + '/';
@@ -231,7 +232,7 @@ StreamClient.prototype = {
     } else {
       urlEnvironmentKey = 'STREAM_' + serviceName.toUpperCase() + '_URL';
     }
-    if (typeof process !== 'undefined' && process.env[urlEnvironmentKey]) {
+    if (typeof process !== 'undefined' && typeof process.env != 'undefined' && process.env[urlEnvironmentKey]) {
       url = process.env[urlEnvironmentKey];
     }
     if (this.options.urlOverride && this.options.urlOverride[serviceName]) {
